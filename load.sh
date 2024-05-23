@@ -5,6 +5,9 @@
 export PYTHONPATH=$PYTHONPATH:/code/tensorrt_llm/manual_plugin
 export PYTHONPATH=$PYTHONPATH:/code/tensorrt_llm/manual_plugin/AutoAWQ
 export FT_LOG_LEVEL=ERROR
+cd tensorrt_llm
+mv /usr/local/lib/python3.10/dist-packages/tensorrt_llm/libs libs
+cd ..
 # pip install modelutils -i https://pypi.tuna.tsinghua.edu.cn/simple
 # pip install peft -i https://pypi.tuna.tsinghua.edu.cn/simple
 cd quantkernel

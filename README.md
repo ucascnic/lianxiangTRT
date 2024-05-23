@@ -16,6 +16,7 @@ Please run the docker
 ```
  srun  -N 1 --pty --gres=gpu:a100:4 -A h100 -p a100  docker run --rm -it   --ipc=host -p 6789:22 -v /home/chenyidong/lianxiang/lianxiangTRT:/code/tensorrt_llm  \
             -v /home/chenyidong/checkpoint:/code/checkpoint  \
+            -v /home/chenyidong/dataset:/code/dataset  \
              --ulimit memlock=-1 --ulimit    stack=67108864             \
             --gpus=all       \
             --env "CCACHE_DIR=/code/tensorrt_llm/cpp/.ccache"            \
