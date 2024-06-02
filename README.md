@@ -57,8 +57,12 @@ bash commpi.sh
 The pytoch benchmark is shown in compare.ipynb
 
 Please run the flowing script to reproduce the benchmark of AWQ MIXQ bitsandbytes FP16
+
 ``` cd MixQ/src ```
 
 
 Run:
+
 ``` bash runthroughput.sh 0 ```
+
+<img src="figure/throughput-llama70b_revised_baseline.jpg"  align = "center"  width="600" />
