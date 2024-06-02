@@ -5,11 +5,10 @@ checkpoint
 ./outputs/*
 ./checkpoint/*
 
-quantkernel 
-quantkernel 
+
 dataset
 outputs
-act_scales
-EETQ
+#act_scales
+#EETQ
 AutoAWQ
 *.csv
