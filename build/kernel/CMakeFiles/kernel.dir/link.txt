@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC  -Wall -pthread  -lstdc++ -O2 -shared -Wl,-soname,libkernel.so -o libkernel.so CMakeFiles/kernel.dir/kernel_generated_i8gemm.cu.o  /usr/local/cuda/lib64/libcudart_static.a -ldl /usr/lib/x86_64-linux-gnu/librt.a 

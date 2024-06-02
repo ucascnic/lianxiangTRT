@@ -51,7 +51,7 @@ endif()
 message(STATUS "tensorrt include path: ${TRT_INCLUDE_DIR}")
 if(DEFINED TRT_LLM_INCLUDE_DIR)
   message(
-    STATUS "openai_triton/manual_plugin example has been self-contained "
+    STATUS "manual_plugin example has been self-contained "
            "and TRT_LLM_INCLUDE_DIR is now unnecessary to specify the path of "
            "C++ runtime source files.")
 endif()

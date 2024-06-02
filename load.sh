@@ -22,7 +22,7 @@ cd EETQ
 python setup.py install
 cd ..
 
-mkdir build
+#mkdir build
 cd build
 cmake ..
 make
