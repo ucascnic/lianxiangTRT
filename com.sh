@@ -8,9 +8,9 @@ ngpu=1
 for model in "${models[@]}"
     do
 
-    model_dir=/code/tensorrt_llm/manual_plugin/checkpoint/${model}
-    quant_dir=/code/tensorrt_llm/manual_plugin/checkpoint/checkpoinmix/tllm_checkpoint_${ngpu}gpu_fp16${model}
-    out_dir=/code/tensorrt_llm/manual_plugin/checkpoint/trt_enginesmix/tllm_checkpoint_${ngpu}gpu_fp16${model}
+    model_dir=/code/checkpoint/${model}
+    quant_dir=/code/checkpoint/checkpoinmix/tllm_checkpoint_${ngpu}gpu_fp16${model}
+    out_dir=/code/checkpoint/trt_enginesmix/tllm_checkpoint_${ngpu}gpu_fp16${model}
 
     # rm -r ${quant_dir}
     # rm -r ${out_dir}

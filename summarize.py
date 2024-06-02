@@ -121,7 +121,7 @@ def main(args):
     #                        cache_dir=args.dataset_path,
     #                        split=dataset_split,
     #                        data_dir = '/code/tensorrt_llm/datasets/')
-    base = '/code/tensorrt_llm/manual_plugin/dataset'
+    base = '/code/checkpoint/dataset'
      
  
     dataset_input_key = 'article'
@@ -130,7 +130,7 @@ def main(args):
     import os
     dataset = load_dataset(os.path.join(base,dataset_name),
                             dataset_revision,
-                            cache_dir='/code/tensorrt_llm/manual_plugin/dataset',
+                            cache_dir=base,
                             split=dataset_split)
     
     max_batch_size = args.batch_size
@@ -165,8 +165,8 @@ def main(args):
                 f.write(f'Tokenizer path: {args.tokenizer_dir}\n')
 
     # TODO: Add random_seed flag in gptj
-    metric_tensorrt_llm = [evaluate.load("/code/tensorrt_llm/manual_plugin/dataset/rouge/rouge/rouge.py") for _ in range(num_beams)]
-    metric_hf = [evaluate.load("/code/tensorrt_llm/manual_plugin/dataset/rouge/rouge/rouge.py") for _ in range(num_beams)]
+    metric_tensorrt_llm = [evaluate.load("/code/checkpoint/dataset/rouge/rouge/rouge.py") for _ in range(num_beams)]
+    metric_hf = [evaluate.load("/code/checkpoint/dataset/rouge/rouge/rouge.py") for _ in range(num_beams)]
     for i in range(num_beams):
         metric_tensorrt_llm[i].seed = 0
         metric_hf[i].seed = 0
