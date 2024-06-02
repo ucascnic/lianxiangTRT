@@ -116,8 +116,8 @@ weightonlykernel/clean: weightonlykernel/CMakeFiles/weightonlykernel.dir/clean
 # Target rules for target CMakeFiles/trt_llm_custom_plugins.dir
 
 # All Build rule for target.
-CMakeFiles/trt_llm_custom_plugins.dir/all: kernel/CMakeFiles/kernel.dir/all
 CMakeFiles/trt_llm_custom_plugins.dir/all: weightonlykernel/CMakeFiles/weightonlykernel.dir/all
+CMakeFiles/trt_llm_custom_plugins.dir/all: kernel/CMakeFiles/kernel.dir/all
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/trt_llm_custom_plugins.dir/build.make CMakeFiles/trt_llm_custom_plugins.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/trt_llm_custom_plugins.dir/build.make CMakeFiles/trt_llm_custom_plugins.dir/build
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=/code/tensorrt_llm/build/CMakeFiles --progress-num=3,4,5 "Built target trt_llm_custom_plugins"

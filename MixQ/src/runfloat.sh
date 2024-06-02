@@ -3,8 +3,8 @@
 #CMD="srun  -p twills -A h100 --gres=gpu:h100:1 --export=ALL python"
 #CMD="python "
 CMD="srun -N 1 --pty --gres=gpu:a100:2 -p octave -A public python"
-export http_proxy=127.0.0.1:7890 
-export https_proxy=127.0.0.1:7890
+export http_proxy=127.0.0.1:8892 
+export https_proxy=127.0.0.1:8892
 set -x
 
 

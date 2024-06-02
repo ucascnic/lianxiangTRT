@@ -25,7 +25,7 @@ def warmup(model):
 
 
 
-def prepare_data(_dataset_path = 'wikitext', _split='test', _text_column='text'):
+def prepare_data(_dataset_path, _split='test', _text_column='text'):
     from datasets import load_dataset
     """
     Prepares the dataset by loading and formatting.
@@ -35,10 +35,11 @@ def prepare_data(_dataset_path = 'wikitext', _split='test', _text_column='text')
     str
         The formatted dataset as a single string.
     """
-    _dataset_path = '/code/checkpoint/dataset/wikitext/wikitext-2-raw-v1'
     _dataset_name = 'default'
     if _dataset_path == 'c4':
-        _dataset_name = 'realnewslike'        
+        _dataset_name = 'realnewslike' 
+    if _dataset_path == 'wikitext':
+        _dataset_name  = 'default'   
     # Load the dataset
     print(_dataset_path)
     print(_dataset_name)
@@ -153,6 +154,7 @@ def run_round(model_path, quant_file, n_generate, token, batch_size, safetensors
             max_new_tokens=n_generate, batch_size=batch_size,
             safetensors=safetensors
         )
+        model = model.to('cuda')
     if model_type == 'fp16':    
         from transformers import AutoModelForCausalLM, AutoTokenizer, BitsAndBytesConfig
         model = AutoModelForCausalLM.from_pretrained(
@@ -334,23 +336,28 @@ def main(args):
 
     all_stats = []
     
-    cache = MixLibCache(bit=args.bit)
+    
 
-    print("downloading data......")
-    text = prepare_data()
-    print("done......")
 
-    tokenizer = AutoTokenizer.from_pretrained(args.model_path, use_fast=args.use_fast_tokenizer, trust_remote_code=True)
+    print("load tokenizer")
+    tokenizer = AutoTokenizer.from_pretrained(args.model_path, 
+    use_fast=args.use_fast_tokenizer, 
+    trust_remote_code=True)
+    print("done")
     if not tokenizer.pad_token_id:
         tokenizer.pad_token_id = tokenizer.eos_token_id    
     tokenizer.model_max_length = sys.maxsize
+
+    print("downloading data......")
+    text = prepare_data(_dataset_path = args._dataset_path)
+    print("done......")    
     tokens = tokenizer(text, truncation=False, return_tensors='pt').input_ids.to('cuda')
-
+    
     
 
     
 
-    
+    cache = MixLibCache(bit=args.bit)
     for settings in rounds:
          
 
@@ -398,6 +405,8 @@ if __name__ == "__main__":
     parser.add_argument("--use_fast_tokenizer", action="store_true", help="Wheter to use fast tokenizer")
     parser.add_argument("--seq_length", type=int, default=512)
     parser.add_argument("--bit", type=int, default=8)
+    parser.add_argument("--_dataset_path", type=str, default='wikitext')
+    
     args = parser.parse_args()
 
     main(args)

@@ -5,7 +5,7 @@
 export PYTHONPATH=$PYTHONPATH:/code/tensorrt_llm/
 export FT_LOG_LEVEL=ERROR
 
-cp -r /usr/local/lib/python3.10/dist-packages/tensorrt_llm/libs /code/tensorrt_llm/tensorrt_llm/libs
+#cp -r /usr/local/lib/python3.10/dist-packages/tensorrt_llm/libs /code/tensorrt_llm/tensorrt_llm/libs
 # pip install modelutils -i https://pypi.tuna.tsinghua.edu.cn/simple
 # pip install peft -i https://pypi.tuna.tsinghua.edu.cn/simple
 cd quantkernel
@@ -20,7 +20,9 @@ cd ..
 
 cd EETQ
 #rm -r build
-python setup.py install
+python setup.py build
+export PYTHONPATH=$PYTHONPATH:/code/tensorrt_llm/EETQ/build/lib.linux-x86_64-cpython-310
+
 cd ..
 
 #mkdir build
