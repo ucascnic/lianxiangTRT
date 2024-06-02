@@ -51,3 +51,14 @@ Please run optimized model  with Llama-2-70B by
 bash commpi.sh
 
 ```
+
+## benchmark
+
+The pytoch benchmark is shown in compare.ipynb
+
+Please run the flowing script to reproduce the benchmark of AWQ MIXQ bitsandbytes FP16
+``` cd MixQ/src ```
+
+
+Run:
+``` bash runthroughput.sh 0 ```
