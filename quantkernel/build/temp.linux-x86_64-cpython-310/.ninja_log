@@ -1,0 +1,5 @@
+# ninja log v5
+5	25299	1717308656515129127	/code/tensorrt_llm/quantkernel/build/temp.linux-x86_64-cpython-310/mix_cuda/pybind_mix.o	6a0f5c4ebbbadad3
+5	91175	1717308722438041979	/code/tensorrt_llm/quantkernel/build/temp.linux-x86_64-cpython-310/mix_cuda/mma_permutated.o	94a1e5e104aa6316
+4	97521	1717308728778321936	/code/tensorrt_llm/quantkernel/build/temp.linux-x86_64-cpython-310/mix_cuda/layernorm/layernorm.o	cabccc018d0f541a
+4	134335	1717308765563945606	/code/tensorrt_llm/quantkernel/build/temp.linux-x86_64-cpython-310/mix_cuda/cult.o	85d25b3359c0a22e

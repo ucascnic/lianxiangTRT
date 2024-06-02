@@ -11,9 +11,9 @@ type='fp16'
 for model in "${models[@]}"
     do
 
-    model_dir=/code/tensorrt_llm/manual_plugin/checkpoint/${model}
-    output_dir=/code/tensorrt_llm/manual_plugin/checkpoint/checkpoint${type}/tllm_checkpoint_1gpu_fp16${model}
-    engine_dir=/code/tensorrt_llm/manual_plugin/checkpoint/trt_engines${type}/tllm_checkpoint_1gpu_fp16${model}
+    model_dir=/code/checkpoint/${model}
+    output_dir=/code/checkpoint/checkpoint${type}/tllm_checkpoint_1gpu_fp16${model}
+    engine_dir=/code/checkpoint/trt_engines${type}/tllm_checkpoint_1gpu_fp16${model}
 
     # CUDA_VISIBLE_DEVICES=$1  http_proxy=127.0.0.1:7890 https_proxy=127.0.0.1:7890 \
     # python  quantize.py --model_dir  ${model_dir}\

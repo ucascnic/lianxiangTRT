@@ -2,9 +2,9 @@
 # pip install rouge_score
 # pip install nltk
 # rm -r /usr/local/lib/python3.10/dist-packages/tensorrt_llm
-export PYTHONPATH=$PYTHONPATH:/code/tensorrt_llm/manual_plugin
-export PYTHONPATH=$PYTHONPATH:/code/tensorrt_llm/manual_plugin/AutoAWQ
+export PYTHONPATH=$PYTHONPATH:/code/tensorrt_llm/
 export FT_LOG_LEVEL=ERROR
+cp -r /usr/local/lib/python3.10/dist-packages/tensorrt_llm/libs /code/tensorrt_llm/tensorrt_llm/libs
 # pip install modelutils -i https://pypi.tuna.tsinghua.edu.cn/simple
 # pip install peft -i https://pypi.tuna.tsinghua.edu.cn/simple
 cd quantkernel
@@ -18,10 +18,11 @@ cd ..
 
 
 cd EETQ
+#rm -r build
 python setup.py install
 cd ..
 
-
+mkdir build
 cd build
 cmake ..
 make
