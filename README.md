@@ -65,4 +65,11 @@ Run:
 
 ``` bash runthroughput.sh 0 ```
 
+For Llama-2-70B model:
+
 <img src="figure/throughput-llama70b_revised_baseline.jpg"  align = "center"  width="600" />
+
+
+For Llama-2-7B model:
+
+<img src="figure/throughput-llama7b.jpg"  align = "center"  width="600" />
