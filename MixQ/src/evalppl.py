@@ -101,7 +101,7 @@ if __name__ == "__main__":
 
     parser.add_argument("--n_ctx", type=int, default=256, help="Context size.")
     parser.add_argument("--n_batch", type=int, default=256, help="Batch size.")
-    parser.add_argument("--dataset_path", type=str, default='wikitext', help="Path to the dataset.")
+    parser.add_argument("--_dataset_path", type=str, default='wikitext', help="Path to the dataset.")
     parser.add_argument("--dataset_name", type=str, default=None, help="Name of the dataset.")
     parser.add_argument("--split", type=str, default='test', help="Dataset split to use.")
     parser.add_argument("--text_column", type=str, default='text', help="Column in the dataset containing the text.")
@@ -138,7 +138,7 @@ if __name__ == "__main__":
     tokenizer = AutoTokenizer.from_pretrained(args.model_path, use_fast=args.use_fast_tokenizer, trust_remote_code=True)
     if not tokenizer.pad_token_id:
         tokenizer.pad_token_id = tokenizer.eos_token_id
-    ppl = Perplexity(None, tokenizer, args.dataset_path, args.dataset_name, args.split, args.text_column, args.eval_accuracy)
+    ppl = Perplexity(None, tokenizer, args._dataset_path, args.dataset_name, args.split, args.text_column, args.eval_accuracy)
    
  
     model_path = args.model_path
@@ -204,7 +204,7 @@ if __name__ == "__main__":
         model = AutoAWQForCausalLM.from_quantized(model_path, quant_file, fuse_layers=True, mix = False)
 
 
-    if args.model_type == 'mix':
+    if args.model_type == 'mix4' or args.model_type == 'mix8' :
         from mixquant.Cache import MixLibCache
         from mixquant import AutoForCausalLM
         cache = MixLibCache(args.n_batch)
@@ -276,7 +276,7 @@ if __name__ == "__main__":
         llama_replace_with_kernels(model, args)    
         model = model.to('cuda')
     print(model)
-    ppl = Perplexity(model, tokenizer, args.dataset_path, args.dataset_name, 
+    ppl = Perplexity(model, tokenizer, args._dataset_path, args.dataset_name, 
                      args.split, args.text_column, args.eval_accuracy)
     allppl = ppl.calculate_perplexity(args.n_ctx, args.n_batch)
 

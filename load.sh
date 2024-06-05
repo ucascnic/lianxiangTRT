@@ -12,10 +12,10 @@ cd quantkernel
 python setup.py install
 cd ..
 
-# cd AutoAWQ/AutoAWQ_kernels-0.0.6
-# python setup.py install
-# cd ..
-# cd ..
+cd MixQ/AutoAWQ 
+python setup.py install
+cd ..
+cd ..
 
 
 cd EETQ
@@ -30,3 +30,8 @@ cd build
 cmake ..
 make
 cd ..
+
+
+
+pip install datasets==2.14.7
+pip install -i https://pypi.org/simple/ bitsandbytes

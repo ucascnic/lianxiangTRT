@@ -25,7 +25,7 @@ def warmup(model):
 
 
 
-def prepare_data(_dataset_path, _split='test', _text_column='text'):
+def prepare_data(_dataset_path = 'wikitext', _split='test', _text_column='text'):
     from datasets import load_dataset
     """
     Prepares the dataset by loading and formatting.
@@ -35,16 +35,18 @@ def prepare_data(_dataset_path, _split='test', _text_column='text'):
     str
         The formatted dataset as a single string.
     """
-    _dataset_name = 'default'
-    if _dataset_path == 'c4':
-        _dataset_name = 'realnewslike' 
+    _dataset_name = 'wikitext-2-raw-v1'
     if _dataset_path == 'wikitext':
-        _dataset_name  = 'default'   
+        _dataset_name = 'wikitext-2-raw-v1'
+    if _dataset_path == 'c4':
+        _dataset_name = 'realnewslike'        
     # Load the dataset
     print(_dataset_path)
-    print(_dataset_name)
-    data = load_dataset(_dataset_path, _dataset_name, 
-                        cache_dir = _dataset_path, split=_split)
+ 
+    #data = load_dataset(data_dir=_dataset_path, name='wikitext-2-raw-v1', split=_split)
+    data = load_dataset(os.path.join(_dataset_path,"wikitext"), name='wikitext-2-raw-v1', 
+            cache_dir="/cache", split=_split)
+  
     # Format the text column of the dataset
     text_list = [' \n' if s == '' else s for s in data[_text_column]]
     return ''.join(text_list)
@@ -132,7 +134,7 @@ def generate(model, tokens, n_generate, batch_size, cache):
     return  generate_time
 
 def run_round(model_path, quant_file, n_generate, token, batch_size, safetensors, model_type='fp16',mixlibcache=None):
-    if model_type == 'mix':
+    if model_type == 'mix8' or model_type == 'mix4':
         from mixquant import AutoForCausalLM
         model = AutoForCausalLM.from_quantized(
             model_path, quant_file, fuse_layers=True,
@@ -349,7 +351,7 @@ def main(args):
     tokenizer.model_max_length = sys.maxsize
 
     print("downloading data......")
-    text = prepare_data(_dataset_path = args._dataset_path)
+    text = prepare_data(args._dataset_path)
     print("done......")    
     tokens = tokenizer(text, truncation=False, return_tensors='pt').input_ids.to('cuda')
     
@@ -403,7 +405,7 @@ if __name__ == "__main__":
     parser.add_argument("--model_type", type=str, default="awq")
     parser.add_argument("--safetensors", default=False, action="store_true", help="Use for enabling safetensors")
     parser.add_argument("--use_fast_tokenizer", action="store_true", help="Wheter to use fast tokenizer")
-    parser.add_argument("--seq_length", type=int, default=512)
+    parser.add_argument("--seq_length", type=int, default=32)
     parser.add_argument("--bit", type=int, default=8)
     parser.add_argument("--_dataset_path", type=str, default='wikitext')
     

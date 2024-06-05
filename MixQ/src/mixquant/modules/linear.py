@@ -67,6 +67,9 @@ class MixLinear_GEMM(nn.Module):
             self.bias = None
         self.cnt = 0
         self.forward_without_precondition_len = -1
+        if bit == 4:
+            self.forward_without_precondition_len = fp_features_num
+
 
         self.cache = cache
         self.weight_only = weight_only
@@ -255,7 +258,8 @@ class MixLinear_GEMM(nn.Module):
                                                             cache.x_scale,
                                                             self.scale_col,
                                                             outliers_fp16,
-                                                            M,self.out_features, (self.in_features ) // 2)                      
+                                                            M,self.out_features, 
+                                                            (self.in_features ) // 2)                      
             else:
                 if self.bit == 8:    
                     y1 = mixlib.int8FusedDequantize(cache.q_xcache, 

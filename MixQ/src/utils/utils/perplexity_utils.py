@@ -5,7 +5,7 @@ import numpy as np
 from tqdm import tqdm
 from datasets import load_dataset
 from transformers import AutoTokenizer, AutoModelForCausalLM
-
+import os
 
 class Perplexity:
     """
@@ -64,12 +64,18 @@ class Perplexity:
         str
             The formatted dataset as a single string.
         """
-        if self._dataset_path == 'wikitext':
-            self._dataset_name = 'wikitext-2-raw-v1'
-        if self._dataset_path == 'c4':
-            self._dataset_name = 'realnewslike'        
+        _dataset_name = 'wikitext-2-raw-v1'
+        _dataset_path = self._dataset_path
+        if _dataset_path == 'wikitext':
+            _dataset_name = 'wikitext-2-raw-v1'
+        if _dataset_path == 'c4':
+            _dataset_name = 'realnewslike'        
         # Load the dataset
-        data = load_dataset(self._dataset_path, self._dataset_name, split=self._split)
+        print(_dataset_path)
+    
+        #data = load_dataset(data_dir=_dataset_path, name='wikitext-2-raw-v1', split=_split)
+        data = load_dataset(os.path.join(_dataset_path,"wikitext"), name='wikitext-2-raw-v1', 
+                cache_dir="/cache", split=self._split)
         # Format the text column of the dataset
         text_list = [' \n' if s == '' else s for s in data[self._text_column]]
         return ''.join(text_list)

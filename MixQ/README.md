@@ -1,7 +1,14 @@
 # MixQ
 Enabling High Performance [ Int8 Int8 + fp16fp16] Mix GEMM with High Accuracy for LLama
 
+## 运行示例
 
+``` 
+bash runthroughput.sh 0 fp16
+bash runthroughput.sh 0 bitsandbytes
+bash runthroughput.sh 0 mix4
+bash runthroughput.sh 0 mix8
+```  
 
 
 # Overview
