@@ -5,11 +5,12 @@ from lm_eval import evaluator
 from datasets import load_dataset
 from transformers import pipeline
 from evaluate import load as load_metric
-from lm_eval.tasks import initialize_tasks
+#from lm_eval.tasks import initialize_tasks
 from transformers import AutoModelForCausalLM, AutoTokenizer
 from transformers.models.whisper.english_normalizer import BasicTextNormalizer
 
-
+from lm_eval.utils import handle_non_serializable, make_table, simple_parse_args_string
+print(make_table)
 def get_device():
     if torch.backends.mps.is_available():
         return "mps"
@@ -119,7 +120,7 @@ def eval_mmlu(
     num_fewshot=1,
     batch_size=1,
     device="cuda:0",
-    task_use_pretrained=False,
+    eval_mmlu=False,
 ):
     try:
         import vllm
@@ -128,7 +129,7 @@ def eval_mmlu(
     except ImportError:
         VLLM_INSTALLED = False
 
-    initialize_tasks(verbosity="DEBUG")
+    #initialize_tasks(verbosity="DEBUG")
 
     if VLLM_INSTALLED:
         model = "vllm"
@@ -139,8 +140,7 @@ def eval_mmlu(
             trust_remote_code=True,
         )
 
-        if not task_use_pretrained:
-            model_args["quantization"] = "awq"
+        model_args["quantization"] = task_use_pretrained
     else:
         model = "hf"
         model_args = dict(
@@ -161,7 +161,7 @@ def eval_mmlu(
         log_samples=False,
     )
 
-    print(evaluator.make_table(results))
+    print(make_table(results))
 
 
 if __name__ == "__main__":

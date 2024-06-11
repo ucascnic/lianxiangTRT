@@ -34,3 +34,8 @@ cd ..
 
 pip install datasets==2.14.7
 pip install -i https://pypi.org/simple/ bitsandbytes
+
+
+# cd lm-evaluation-harness
+# python setup.py install
+# cd ..

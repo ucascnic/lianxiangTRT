@@ -4,9 +4,7 @@ from transformers import AutoTokenizer
 from evaluation import (
     evaluate_perplexity,
     eval_librispeech,
-    eval_mmlu,
-    eval_humaneval,
-    eval_kl_divergence,
+    eval_mmlu
 )
 
 def run_eval(
@@ -18,27 +16,13 @@ def run_eval(
     """
     tasks = tasks.split(',')
 
-
+    name = "awq"
     if len(tasks) == 1 and tasks[0] == 'mmlu':
-        eval_mmlu(model_path, task_n_shot, task_batch_size, device, task_use_pretrained)
+        eval_mmlu(model_path, task_n_shot, task_batch_size, device, name)
     
-    elif len(tasks) == 1 and tasks[0] == 'humaneval':
-        eval_humaneval(model, tokenizer)
-    
-    elif len(tasks) == 1 and tasks[0] == 'kldiv':
-        eval_kl_divergence(model.model, model.model, tokenizer, seqlen=1024)
-
     else:
-        # Evaluate perplexity of quantized model
-        results = evaluator.simple_evaluate(
-            model=model,
-            tasks=tasks,
-            batch_size=task_batch_size,
-            no_cache=True,
-            num_fewshot=task_n_shot,
-        )
+        raise "!"
 
-        print(evaluator.make_table(results))
 
 if __name__ == '__main__':
     """

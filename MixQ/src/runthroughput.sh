@@ -13,7 +13,7 @@ _dataset_path=/code/checkpoint/dataset
 data_type=$2
 
 
-for batch in   32
+for batch in   32 64 128 256 512
     do
     for seq in   512
       
