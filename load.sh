@@ -12,9 +12,8 @@ cd quantkernel
 python setup.py install
 cd ..
 
-cd MixQ/AutoAWQ 
+cd AutoAWQ 
 python setup.py install
-cd ..
 cd ..
 
 
