@@ -39,3 +39,5 @@ pip install -i https://pypi.org/simple/ bitsandbytes
 # cd lm-evaluation-harness
 # python setup.py install
 # cd ..
+
+pip install peft

@@ -19,15 +19,15 @@ for model in "${models[@]}"
     # --output_dir  ${quant_dir}  --dtype float16 --device  cpu \
     #                                --qformat int8_mix  --calib_size 32 
 
-    # CUDA_VISIBLE_DEVICES=$1 trtllm-build --checkpoint_dir ${quant_dir} \
-    #    --output_dir ${out_dir} \
-    #        --gemm_plugin float16 --mix_precision int8 
+    CUDA_VISIBLE_DEVICES=$1 trtllm-build --checkpoint_dir ${quant_dir} \
+       --output_dir ${out_dir} --max_input_len  2048 \
+           --gemm_plugin float16 --mix_precision int8 
 
-    CUDA_VISIBLE_DEVICES=$1 http_proxy=127.0.0.1:7890 https_proxy=127.0.0.1:7890 \
-                 python  summarize.py --test_trt_llm \
-                       --hf_model_dir ${model_dir} \
-                       --data_type fp16 \
-                       --engine_dir ${out_dir}
+    # CUDA_VISIBLE_DEVICES=$1 http_proxy=127.0.0.1:7890 https_proxy=127.0.0.1:7890 \
+    #              python  summarize.py --test_trt_llm \
+    #                    --hf_model_dir ${model_dir} \
+    #                    --data_type fp16 \
+    #                    --engine_dir ${out_dir}
 
 done 
 

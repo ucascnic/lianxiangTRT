@@ -4,3 +4,5 @@
 *.ptx
 *.cubin
 *.fatbin
+lm-evaluation-harness
+lm-evaluation-harness/*

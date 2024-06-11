@@ -42,8 +42,9 @@ def _load_triton_plugin_lib():
     assert handle.initOpenAiTritonPlugins(
         None, TRT_LLM_PLUGIN_NAMESPACE.encode('utf-8'))
 
-
+print("loading plugging ")
 _load_triton_plugin_lib()
+print("done! ")
 
 
 def flash_attention_op(num_heads: int, head_size: int, softmax_scale: float,
