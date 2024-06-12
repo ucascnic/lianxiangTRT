@@ -34,7 +34,7 @@ if [ ${data_type} == fp16  ] || [ ${data_type} == bitsandbytes  ]
     for model in "${models[@]}"
     do
         echo ${model}      
-
+        export TRANSFORMERS_VERBOSITY=error
         CUDA_VISIBLE_DEVICES=$1    ${CMD} mmlu.py  --model_type ${data_type} --hf_model_dir  ${basepath}/${model}  \
         --engine_dir /code/checkpoint/trt_enginesfp16/tllm_checkpoint_${ngpu}gpu_fp16${model} 
 

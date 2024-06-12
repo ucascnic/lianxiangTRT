@@ -635,6 +635,7 @@ def main():
             device_map="auto" if args.hf_device_map_auto else None,
         )
         model.cuda()
+
         
     if model_name == "qwen":
         model.generation_config = GenerationConfig.from_pretrained(
