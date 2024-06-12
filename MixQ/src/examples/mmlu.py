@@ -37,7 +37,7 @@
 Helper script to compare TRTLLM and HF models on the MMLU dataset.
 Example usage:
     mkdir data; wget https://people.eecs.berkeley.edu/~hendrycks/data.tar -O data/mmlu.tar
-    tar -xf data/mmlu.tar -C data && mv data/data data/mmlu
+    tar --no-same-owner  -xf data/mmlu.tar -C data && mv data/data data/mmlu
 
     python mmlu.py --hf_model_dir <HF model path>  
     python mmlu.py --hf_model_dir <HF model path> 
@@ -466,7 +466,7 @@ def add_common_args(parser):
     )
 
     # model arguments
-    parser.add_argument('--engine_dir', type=str, default='engine_outputs')
+    parser.add_argument('--engine_dir', type=str, default=None)
     parser.add_argument(
         '--tokenizer_type',
         help=
@@ -532,6 +532,26 @@ def add_common_args(parser):
         help="Use device map 'auto' to load a pretrained HF model. This may "
         "help to test a large model that cannot fit into a singlue GPU.")
     return parser
+from pathlib import Path
+import json
+def read_model_name_(engine_dir: str):
+    engine_version = "1.0"
+
+    with open(Path(engine_dir) / "config.json", 'r') as f:
+        config = json.load(f)
+
+    if engine_version is None:
+        return config['builder_config']['name'], None
+
+    print(config)
+    model_arch = config['architectures'][0]
+    model_version = None
+    if model_arch == 'ChatGLMForCausalLM':
+        model_version = config['chatglm_version']
+    if model_arch == 'QWenForCausalLM':
+        model_version = config['qwen_type']
+    return model_arch, model_version
+
 def main():
     args = parse_args()
     if args.tokenizer_dir is None:
@@ -555,8 +575,10 @@ def main():
         for subcat in subcat_lists
     }
     cat_cors = {cat: [] for cat in get_categories()}
-
-    model_name, model_version = read_model_name(args.engine_dir)
+    if args.engine_dir is not None:
+        model_name, model_version = read_model_name(args.engine_dir)
+    else:
+        model_name, model_version = read_model_name_(args.hf_model_dir)
     tokenizer, pad_id, end_id = load_tokenizer(
         tokenizer_dir=args.tokenizer_dir,
         vocab_file=args.vocab_file,

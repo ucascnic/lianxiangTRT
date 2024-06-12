@@ -49,8 +49,7 @@ if [ ${data_type} == awq  ]
     do
         echo ${model}      
 
-        CUDA_VISIBLE_DEVICES=$1    ${CMD} mmlu.py  --model_type ${data_type} --hf_model_dir  ${basepath}/awqquant/${model}  \
-        --engine_dir /code/checkpoint/trt_enginesfp16/tllm_checkpoint_${ngpu}gpu_fp16${model} 
+        CUDA_VISIBLE_DEVICES=$1    ${CMD} mmlu.py  --model_type ${data_type} --hf_model_dir  ${basepath}/awqquant/${model}  
 
     done
     pip install transformers==4.38.2  
