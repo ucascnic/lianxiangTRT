@@ -16,7 +16,7 @@ except Exception as ex:
 common_setup_kwargs = {
     "version": f"0.1.5+cu{CUDA_VERSION}",
     "name": "mixlib",
-    "author": "Casper Hansen",
+    "author": "Jidong Zhai",
     "license": "MIT",
     "python_requires": ">=3.8.0",
     "long_description_content_type": "text/markdown",

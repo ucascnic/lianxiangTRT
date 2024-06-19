@@ -12,8 +12,8 @@ for model in "${models[@]}"
     do
 
     model_dir=/dataset/${model}
-    output_dir=/code/tensorrt_llm/manual_plugin/checkpoint/checkpoint${type}/tllm_checkpoint_1gpu_fp16${model}
-    engine_dir=/code/tensorrt_llm/manual_plugin/checkpoint/trt_engines${type}/tllm_checkpoint_1gpu_fp16${model}
+    output_dir=/code/checkpoint/checkpoint${type}/tllm_checkpoint_1gpu_fp16${model}
+    engine_dir=/code/checkpoint/trt_engines${type}/tllm_checkpoint_1gpu_fp16${model}
 
     # CUDA_VISIBLE_DEVICES=4,5,6,7  http_proxy=127.0.0.1:7890 https_proxy=127.0.0.1:7890 \
     # python  quantize.py --model_dir  ${model_dir}\

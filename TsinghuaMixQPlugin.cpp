@@ -466,7 +466,7 @@ int MixQPlugin::enqueueImpl(nvinfer1::PluginTensorDesc const* inputDesc,
        
 
 
-    if (M > 16){
+    if (M > 4){
         // prefill
         //printf("M N K is %d %d %d\n",M,N,K);
         
