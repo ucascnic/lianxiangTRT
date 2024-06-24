@@ -1,9 +1,21 @@
 
- srun  -N 1 --pty --gres=gpu:a100:1 -A h100 -p a100  docker run --rm -it \
-   --ipc=host -p 6789:22 -v /home/chenyidong/lianxiang/lianxiangTRT/:/code/tensorrt_llm  \
-            -v  /mnt/octave/data/chenyidong/checkpoint:/dataset  \
-             -v /home/chenyidong/checkpoint:/code/checkpoint  \
-               --ulimit memlock=-1 --ulimit    stack=67108864             \
-                           --gpus=all       \
-                       --env "CCACHE_DIR=/code/tensorrt_llm/cpp/.ccache"            \
-                            --env "CCACHE_BASEDIR=/code/tensorrt_llm"                                      --workdir /app/tensorrt_llm                                                   --hostname hpc-release                                                              --name tensorrt_llm-release-zhanghy                                                                      --tmpfs /tmp:exec                                                                                registry.cn-hangzhou.aliyuncs.com/dongdongchen/dongdong:v1
+set -x
+
+
+model=Llama-2-7b
+ngpu=1
+type=fp16
+
+if [ $1 == fp16 ]
+  then
+    model_dir=/code/checkpoint/${model}
+    output_dir=/code/checkpoint/checkpoint${type}/tllm_checkpoint_1gpu_fp16${model}
+    engine_dir=/code/checkpoint/trt_engines${type}/tllm_checkpoint_1gpu_fp16${model}
+  else
+     model_dir=/code/checkpoint/${model}
+    quant_dir=/code/checkpoint/checkpoinmix/tllm_checkpoint_${ngpu}gpu_fp16${model}
+     engine_dir=/code/checkpoint/trt_enginesmix/tllm_checkpoint_${ngpu}gpu_fp16${model}
+fi
+
+python3 run.py --engine_dir   ${engine_dir}  --use_py_session --no_add_special_tokens --max_output_len 100 \
+--tokenizer_dir ${model_dir} --input_text "美国的首都在哪里? \n答案:"  --top_p 0.5 --top_k 0 --max_output_len 10

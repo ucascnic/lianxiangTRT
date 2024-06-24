@@ -72,7 +72,7 @@ set(generated_file_internal "/code/tensorrt_llm/build/weightonlykernel/CMakeFile
 set(generated_cubin_file_internal "/code/tensorrt_llm/build/weightonlykernel/CMakeFiles/weightonlykernel.dir/weightOnlyBatchedGemv/./weightonlykernel_generated_weightOnlyBatchedGemvBs1Int8b.cu.o.cubin.txt") # path
 
 set(CUDA_NVCC_EXECUTABLE "/usr/local/cuda/bin/nvcc") # path
-set(CUDA_NVCC_FLAGS -std=c++17;-O3;-Xcompiler;-fPIC;-gencode=arch=compute_80,code=sm_80 ;; ) # list
+set(CUDA_NVCC_FLAGS -std=c++17;-O3;-Xcompiler;-fPIC;-gencode=arch=compute_80,code=sm_80;-gencode=arch=compute_90,code=sm_90 ;; ) # list
 # Build specific configuration flags
 set(CUDA_NVCC_FLAGS_RELEASE  ; )
 set(CUDA_NVCC_FLAGS_DEBUG  ; )
